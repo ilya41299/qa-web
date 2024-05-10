@@ -9,6 +9,7 @@ ROOT_DIR = Path(__file__).parent
 class UserSettings(BaseModel):
     login: str
     password: SecretStr
+    nickname: str
 
 
 class Settings(BaseSettings):

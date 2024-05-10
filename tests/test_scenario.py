@@ -1,112 +1,62 @@
-from config import settings
-from yarl import URL
-from locators import AdminLoginPageLocators, AdminDashboardPageLocators, NavbarLocators
+from users import default_admin
 import random
-from locators import MainPageLocators
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 import pytest
-from selenium.webdriver.common.action_chains import ActionChains
 
 
-def test_admin_login_logout(browser, get_base_url):
-    browser.get(str(URL(get_base_url).with_path("/administration/")))
+def test_admin_login_logout(admin_login_page, admin_dashboard_page):
+    admin_login_page.open_page()
 
-    browser.find_element(*AdminLoginPageLocators.USERNAME["locator"]).send_keys(
-        settings.admin.login
-    )
-    browser.find_element(*AdminLoginPageLocators.PASSWORD["locator"]).send_keys(
-        settings.admin.password.get_secret_value()
-    )
-    browser.find_element(*AdminLoginPageLocators.LOGIN["locator"]).click()
-    WebDriverWait(browser, settings.timeout).until(
-        EC.presence_of_element_located(AdminDashboardPageLocators.LOGOUT["locator"])
-    )
-    browser.find_element(*AdminDashboardPageLocators.LOGOUT["locator"]).click()
-    WebDriverWait(browser, settings.timeout).until(
-        EC.presence_of_element_located(AdminLoginPageLocators.CARD_HEADER["locator"])
-    )
+    admin_login_page.login_in_account(default_admin)
+    assert default_admin.nickname in admin_dashboard_page.profile.text
+    admin_dashboard_page.logout.click()
+
+    admin_login_page.card_header.should_be_visible()
 
 
-def test_add_product_to_shopping_cart(browser, get_base_url):
-    browser.get(get_base_url)
-    product_position = random.randint(0, 1)
-    product_name = browser.find_elements(*MainPageLocators.PRODUCT_NAMES["locator"])[
-        product_position
-    ].text
-    random_product_to_shopping_cart = browser.find_elements(
-        *MainPageLocators.ADD_TO_SHOPPING_CART["locator"]
-    )[product_position]
-    ActionChains(browser).move_to_element(random_product_to_shopping_cart).perform()
-    random_product_to_shopping_cart.click()
-    open_shopping_cart_button = browser.find_element(
-        *MainPageLocators.SHOPPING_CART["locator"]
-    )
-    ActionChains(browser).move_to_element(open_shopping_cart_button).perform()
-    WebDriverWait(browser, settings.timeout).until(
-        EC.invisibility_of_element(MainPageLocators.ALERT_TOAST["locator"])
-    )
-    open_shopping_cart_button.click()
-    assert (
-        product_name
-        == browser.find_element(
-            *MainPageLocators.PRODUCT_NAMES_IN_SHOPPING_CART["locator"]
-        ).text
-    )
+def test_add_product_to_shopping_cart(main_page):
+    main_page.open_page()
+    product_position = random.randint(1, 2)
+
+    product_name = main_page.product_cart.get_product_name(index=product_position)
+    main_page.product_cart.add_product_to_shopping_cart(index=product_position)
+
+    main_page.shopping_cart.open_shopping_cart()
+    main_page.shopping_cart.should_contain_product(product_name=product_name)
 
 
 @pytest.mark.parametrize(
-    "page_path",
-    [
-        pytest.param("", id="main page"),
-        pytest.param("/en-gb/catalog/desktops/mac", id="catalog page"),
-    ],
-)
-@pytest.mark.parametrize(
-    ("currency_symbol", "currency_button_locator"),
+    ("currency", "currency_symbol"),
     [
         pytest.param(
+            "EUR",
             "€",
-            NavbarLocators.CURRENCY_EURO["locator"],
-            id=NavbarLocators.CURRENCY_EURO["name"],
+            id="Currency euro",
         ),
         pytest.param(
+            "GBP",
             "£",
-            NavbarLocators.CURRENCY_POUND_STERLING["locator"],
-            id=NavbarLocators.CURRENCY_POUND_STERLING["name"],
+            id="Currency pound sterling",
         ),
     ],
 )
 def test_price_changes_when_changing_currencies(
-    page_path: str | None,
-    currency_symbol: str,
-    currency_button_locator: tuple[str, str],
-    browser,
-    get_base_url,
+    currency,
+    currency_symbol,
+    main_page,
 ):
-    browser.get(str(URL(get_base_url).with_path(page_path)))
-    old_prices = [
-        el.text
-        for el in browser.find_elements(*MainPageLocators.PRODUCTS_PRICES["locator"])
-    ]
-    old_taxes = [
-        el.text
-        for el in browser.find_elements(*MainPageLocators.PRODUCTS_TAXES["locator"])
-    ]
-    browser.find_element(*NavbarLocators.CURRENCY_DROPDOWN["locator"]).click()
-    browser.find_element(*currency_button_locator).click()
-    new_prices = [
-        el.text
-        for el in browser.find_elements(*MainPageLocators.PRODUCTS_PRICES["locator"])
-    ]
-    new_taxes = [
-        el.text
-        for el in browser.find_elements(*MainPageLocators.PRODUCTS_TAXES["locator"])
-    ]
-    assert (
-        currency_symbol
-        in browser.find_element(*MainPageLocators.SHOPPING_CART["locator"]).text
-    )
+    main_page.open_page()
+    old_prices = []
+    old_taxes = []
+    for i in range(1, 4):
+        old_prices.append(main_page.product_cart.get_product_price(index=i))
+        old_taxes.append(main_page.product_cart.get_product_tax(index=i))
+    main_page.navbar.set_currency(currency=currency)
+    new_prices = []
+    new_taxes = []
+    for i in range(1, 4):
+        new_prices.append(main_page.product_cart.get_product_price(index=i))
+        new_taxes.append(main_page.product_cart.get_product_tax(index=i))
+
     for old_price, new_price, old_tax, new_tax in zip(
         old_prices, new_prices, old_taxes, new_taxes
     ):
