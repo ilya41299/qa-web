@@ -1,17 +1,11 @@
-from selenium import webdriver
-
-from page_components import Button, Input, Title
-from page_components.complex_components.product_cart import ProductCart
-from page_components.complex_components.shopping_cart import ShoppingCart
-from pages.base_page import BasePage
-
+from page_components import Button, Input
+from page_components.page_interface.page_interface import PageInterface
 from selenium.webdriver.common.by import By
 
 
-class RegistrationPage(BasePage):
-    def __init__(self, driver: webdriver):
-        super().__init__(driver=driver)
-        self.url = "/index.php?route=account/register"
+class AdminAddCustomer:
+    def __init__(self, page_interface: PageInterface) -> None:
+        self.page_interface = page_interface
         self.first_name = Input(
             page_interface=self.page_interface,
             locator={
@@ -40,32 +34,22 @@ class RegistrationPage(BasePage):
                 "name": "Password input",
             },
         )
-        self.agree_with_private_policy = Button(
+        self.password_confirmation = Input(
             page_interface=self.page_interface,
             locator={
-                "locator": (By.XPATH, "//input[@name='agree']"),
-                "name": "Agree too the Privacy Policy toggle",
+                "locator": (By.XPATH, "//input[@id='input-confirm']"),
+                "name": "Password confirmation input",
             },
         )
-        self.continue_registration = Button(
+        self.submit = Button(
             page_interface=self.page_interface,
             locator={
                 "locator": (By.XPATH, "//button[@type='submit']"),
-                "name": "Continue button",
-            },
-        )
-        self.registration_success_message = Title(
-            page_interface=self.page_interface,
-            locator={
-                "locator": (By.XPATH, "//div[@id='content']/h1"),
-                "name": "Registration success message",
+                "name": "Submit button",
             },
         )
 
-        self.product_cart = ProductCart(page_interface=self.page_interface)
-        self.shopping_cart = ShoppingCart(page_interface=self.page_interface)
-
-    def register_new_user(
+    def add_new_customer(
         self,
         first_name: str,
         last_name: str,
@@ -76,5 +60,5 @@ class RegistrationPage(BasePage):
         self.last_name.fill(text=last_name)
         self.email.fill(text=email)
         self.password.fill(text=password)
-        self.agree_with_private_policy.click()
-        self.continue_registration.click()
+        self.password_confirmation.fill(text=password)
+        self.submit.click()

@@ -4,7 +4,7 @@ from selenium.webdriver import Remote
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
-
+from selenium.webdriver.common.alert import Alert
 from config import settings
 from locators import Locator
 
@@ -45,3 +45,6 @@ class PageInterface:
 
     def get_web_elements(self, locator) -> [WebElement]:
         return self.wait.until(EC.presence_of_all_elements_located(locator))
+
+    def alert_accept(self) -> None:
+        Alert(self.driver).accept()

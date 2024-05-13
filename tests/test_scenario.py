@@ -2,6 +2,8 @@ from users import default_admin
 import random
 import pytest
 
+from utils.fake_data import FakeCustomerRegistrationDataFactory
+
 
 def test_admin_login_logout(admin_login_page, admin_dashboard_page):
     admin_login_page.open_page()
@@ -64,3 +66,19 @@ def test_price_changes_when_changing_currencies(
         assert old_tax != new_tax
         assert currency_symbol in new_price
         assert currency_symbol in new_tax
+
+
+def test_registration(admin_login_page, registration_page):
+    customer_data = FakeCustomerRegistrationDataFactory.build()
+
+    registration_page.open_page()
+    registration_page.register_new_user(
+        first_name=customer_data.first_name,
+        last_name=customer_data.last_name,
+        email=customer_data.email,
+        password=customer_data.password,
+    )
+
+    registration_page.registration_success_message.should_have_text(
+        text="Your Account Has Been Created!"
+    )

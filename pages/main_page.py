@@ -20,13 +20,6 @@ class MainPage(BasePage):
                 "name": "Search input",
             },
         )
-        self.alert_toast = Title(
-            page_interface=self.page_interface,
-            locator={
-                "locator": (By.XPATH, "//div[@id='alert']/div"),
-                "name": "Alert toast",
-            },
-        )
         self.logo = Title(
             page_interface=self.page_interface,
             locator={
