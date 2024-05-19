@@ -1,3 +1,4 @@
+import allure
 from pydantic import SecretStr
 from selenium import webdriver
 
@@ -50,15 +51,19 @@ class AdminLoginPage(BasePage):
             },
         )
 
+    @allure.step("Ввести логин")
     def enter_login(self, login: str):
         self.email_field.clear_and_fill(text=login)
 
+    @allure.step("Ввести пароль")
     def enter_password(self, password: str | SecretStr):
         self.password_field.clear_and_fill(text=password)
 
+    @allure.step("Нажать кнопку логина")
     def click_on_login_button(self):
         self.login_btn.click()
 
+    @allure.step("Пройти аутентификацию")
     def login_in_account(self, user: User):
         self.enter_login(user.login)
         self.enter_password(user.password)

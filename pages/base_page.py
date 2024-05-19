@@ -1,3 +1,4 @@
+import allure
 from selenium.webdriver import Remote
 
 from config import settings
@@ -20,10 +21,13 @@ class BasePage:
         )
 
     def open_page(self):
-        self.page_interface.visit(self.url)
+        with allure.step(f'Перейти на "{self.url}"'):
+            self.page_interface.visit(self.url)
 
     def visit_url(self, url: str):
-        self.page_interface.visit(url)
+        with allure.step(f'Перейти на "{url}"'):
+            self.page_interface.visit(url)
 
     def reload_page(self):
-        self.page_interface.reload()
+        with allure.step(f'Обновить страницу "{self.url}"'):
+            self.page_interface.reload()

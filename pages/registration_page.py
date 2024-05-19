@@ -1,3 +1,4 @@
+import allure
 from selenium import webdriver
 
 from page_components import Button, Input, Title
@@ -65,6 +66,7 @@ class RegistrationPage(BasePage):
         self.product_cart = ProductCart(page_interface=self.page_interface)
         self.shopping_cart = ShoppingCart(page_interface=self.page_interface)
 
+    @allure.step("Зарегистрировать нового пользователя")
     def register_new_user(
         self,
         first_name: str,

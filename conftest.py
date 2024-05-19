@@ -1,5 +1,7 @@
+import os
 import pytest
-
+import logging
+import datetime
 from selenium.webdriver import Chrome, Firefox
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options as ChromeOptions
@@ -18,6 +20,11 @@ def pytest_addoption(parser):
         default="chrome",
         help="Choose browser: chrome or firefox",
     )
+    parser.addoption(
+        "--log_level",
+        default="INFO",
+        help="Set log level",
+    )
 
 
 @pytest.fixture(scope="session")
@@ -28,6 +35,20 @@ def get_base_url(request) -> str:
 @pytest.fixture(scope="function")
 def browser(request) -> WebDriver:
     browser_name = request.config.getoption("browser")
+    log_level = request.config.getoption("--log_level")
+
+    logger = logging.getLogger(request.node.name)
+
+    if not os.path.exists("logs"):
+        os.makedirs("logs")
+    file_handler = logging.FileHandler(f"logs/{request.node.name}.log")
+    file_handler.setFormatter(logging.Formatter("%(levelname)s %(message)s"))
+    logger.addHandler(file_handler)
+    logger.setLevel(level=log_level)
+
+    logger.info(
+        "===> Test %s started at %s" % (request.node.name, datetime.datetime.now())
+    )
     if browser_name == "chrome":
         options = ChromeOptions()
         options.add_argument("--headless=new")
@@ -39,5 +60,12 @@ def browser(request) -> WebDriver:
     else:
         raise pytest.UsageError("--browser_name should be chrome or firefox")
     driver.set_window_size(1920, 1080)
+    driver.log_level = log_level
+    driver.logger = logger
+    driver.test_name = request.node.name
+    logger.info("Browser started at %s" % datetime.datetime.now())
     yield driver
+    logger.info(
+        "===> Test %s finished at %s" % (request.node.name, datetime.datetime.now())
+    )
     driver.quit()
