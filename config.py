@@ -24,5 +24,7 @@ class Settings(BaseSettings):
     base_url: str
     admin: UserSettings
 
+    is_local: bool = False
+
 
 settings = Settings()
