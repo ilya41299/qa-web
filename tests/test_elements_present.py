@@ -1,3 +1,8 @@
+import allure
+
+
+@allure.epic("Главная страница")
+@allure.title("Наличие основных элементов на странице")
 def test_main_page(main_page):
     main_page.open_page()
     main_page.logo.should_be_visible()
@@ -5,6 +10,8 @@ def test_main_page(main_page):
     main_page.carousel_banner.should_be_visible()
 
 
+@allure.epic("Страница категорий товаров")
+@allure.title("Наличие основных элементов на странице")
 def test_category_page(category_page):
     category_page.visit_url("/en-gb/catalog/laptop-notebook")
     category_page.category_name.should_be_visible()
@@ -14,6 +21,8 @@ def test_category_page(category_page):
     category_page.show_dropdown.should_be_visible()
 
 
+@allure.epic("Страница товара")
+@allure.title("Наличие основных элементов на странице")
 def test_product_page(product_page):
     product_page.visit_url("/en-gb/product/desktops/mac/imac")
     product_page.add_product_to_cart.should_be_visible()
@@ -23,6 +32,8 @@ def test_product_page(product_page):
     product_page.product_image.should_be_visible()
 
 
+@allure.epic("Страница администратора")
+@allure.title("Наличие основных элементов на странице")
 def test_admin_login_page(admin_login_page):
     admin_login_page.open_page()
     admin_login_page.email_field.should_be_visible()
@@ -32,6 +43,8 @@ def test_admin_login_page(admin_login_page):
     admin_login_page.card_header.should_be_visible()
 
 
+@allure.epic("Страница регистрации")
+@allure.title("Наличие основных элементов на странице")
 def test_registration_page(registration_page):
     registration_page.open_page()
     registration_page.first_name.should_be_visible()

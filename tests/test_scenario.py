@@ -1,3 +1,5 @@
+import allure
+
 from users import default_admin
 import random
 import pytest
@@ -5,6 +7,10 @@ import pytest
 from utils.fake_data import FakeCustomerRegistrationDataFactory
 
 
+@allure.epic("Страница администратора")
+@allure.feature("Аутентификация")
+@allure.story("Аутентификация администратора")
+@allure.title("Аутентификация администратора")
 def test_admin_login_logout(admin_login_page, admin_dashboard_page):
     admin_login_page.open_page()
 
@@ -15,6 +21,10 @@ def test_admin_login_logout(admin_login_page, admin_dashboard_page):
     admin_login_page.card_header.should_be_visible()
 
 
+@allure.epic("Главная страница")
+@allure.feature("Действие с товарами")
+@allure.story("Добавление товара в корзину")
+@allure.title("Добавление случайного товара в корзину")
 def test_add_product_to_shopping_cart(main_page):
     main_page.open_page()
     product_position = random.randint(1, 2)
@@ -41,6 +51,10 @@ def test_add_product_to_shopping_cart(main_page):
         ),
     ],
 )
+@allure.epic("Главная страница")
+@allure.feature("Изменение свойств товара")
+@allure.story("Изменение валюты")
+@allure.title("Установить валюту '{currency}'")
 def test_price_changes_when_changing_currencies(
     currency,
     currency_symbol,
@@ -68,7 +82,11 @@ def test_price_changes_when_changing_currencies(
         assert currency_symbol in new_tax
 
 
-def test_registration(admin_login_page, registration_page):
+@allure.epic("Страница регистрации")
+@allure.feature("Регистрация пользователя")
+@allure.story("Зарегистрировать нового пользователя")
+@allure.title("Зарегистрировать нового пользователя")
+def test_registration(registration_page):
     customer_data = FakeCustomerRegistrationDataFactory.build()
 
     registration_page.open_page()

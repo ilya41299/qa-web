@@ -1,3 +1,4 @@
+import allure
 from selenium import webdriver
 
 from page_components import Button
@@ -23,6 +24,7 @@ class AdminCustomerPage(BasePage):
         self.add_customer_modal = AdminAddCustomer(page_interface=self.page_interface)
         self.navigation = AdminNavigation(page_interface=self.page_interface)
 
+    @allure.step("Зарегистрировать нового пользователя")
     def add_new_customer(
         self,
         first_name: str,

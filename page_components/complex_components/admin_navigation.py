@@ -1,3 +1,5 @@
+import allure
+
 from page_components.button import Button
 from page_components.page_interface.page_interface import PageInterface
 from selenium.webdriver.common.by import By
@@ -9,19 +11,21 @@ class AdminNavigation:
         self.page_interface = page_interface
 
     def open_tab(self, tab: AdminNavigationTabs):
-        Button(
-            page_interface=self.page_interface,
-            locator={
-                "locator": (By.XPATH, f"//li[@id='menu-{tab}']"),
-                "name": f"Catalog {tab} button",
-            },
-        ).click()
+        with allure.step(f"Открыть вкладку {tab}"):
+            Button(
+                page_interface=self.page_interface,
+                locator={
+                    "locator": (By.XPATH, f"//li[@id='menu-{tab}']"),
+                    "name": f"Catalog {tab} button",
+                },
+            ).click()
 
     def open_subtab(self, subtab: AdminNavigationSubtabs):
-        Button(
-            page_interface=self.page_interface,
-            locator={
-                "locator": (By.XPATH, f"//a[contains(@href,'{subtab}')]"),
-                "name": f"Catalog {subtab} button",
-            },
-        ).click()
+        with allure.step(f"Открыть раздел {subtab}"):
+            Button(
+                page_interface=self.page_interface,
+                locator={
+                    "locator": (By.XPATH, f"//a[contains(@href,'{subtab}')]"),
+                    "name": f"Catalog {subtab} button",
+                },
+            ).click()
