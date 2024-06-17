@@ -1,3 +1,5 @@
+import allure
+
 from page_components.button import Button
 from page_components.title import Title
 from page_components.page_interface.page_interface import PageInterface
@@ -15,17 +17,19 @@ class ShoppingCart:
             },
         )
 
+    @allure.step("Открыть корзину")
     def open_shopping_cart(self):
         self.shopping_cart.click()
 
     def should_contain_product(self, product_name: str):
-        Title(
-            page_interface=self.page_interface,
-            locator={
-                "locator": (
-                    By.XPATH,
-                    f"//div[@id='header-cart']//td[@class='text-start']//a[text()='{product_name}']",
-                ),
-                "name": f"Product '{product_name}' in shopping cart",
-            },
-        ).should_be_visible()
+        with allure.step(f"Проверить, что товар {product_name} добавлен в корзину"):
+            Title(
+                page_interface=self.page_interface,
+                locator={
+                    "locator": (
+                        By.XPATH,
+                        f"//div[@id='header-cart']//td[@class='text-start']//a[text()='{product_name}']",
+                    ),
+                    "name": f"Product '{product_name}' in shopping cart",
+                },
+            ).should_be_visible()

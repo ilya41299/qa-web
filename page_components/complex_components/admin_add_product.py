@@ -1,3 +1,5 @@
+import allure
+
 from page_components import Button, Input
 from page_components.page_interface.page_interface import PageInterface
 from selenium.webdriver.common.by import By
@@ -45,13 +47,14 @@ class AdminAddProduct:
         )
 
     def open_tab(self, tab: AddProductTabs):
-        Button(
-            page_interface=self.page_interface,
-            locator={
-                "locator": (By.XPATH, f"//a[@href='#tab-{tab}']"),
-                "name": f"Catalog {tab}",
-            },
-        ).click()
+        with allure.step(f"Открыть вкладку {tab}"):
+            Button(
+                page_interface=self.page_interface,
+                locator={
+                    "locator": (By.XPATH, f"//a[@href='#tab-{tab}']"),
+                    "name": f"Catalog {tab}",
+                },
+            ).click()
 
     def add_new_product(
         self,

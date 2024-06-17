@@ -1,5 +1,7 @@
 # Ignore all logfiles and tempfiles.
 /log/*
+/logs/*
+/allure-report/*
 /tmp/*
 !/log/.keep
 !/tmp/.keep

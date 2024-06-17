@@ -12,6 +12,7 @@ from locators import Locator
 class PageInterface:
     def __init__(self, driver: Remote = None, timeout=settings.timeout):
         self.driver = driver
+        self.logger = driver.logger
         self.wait = WebDriverWait(driver=driver, timeout=timeout)
         self.timeout = timeout
 
@@ -32,11 +33,15 @@ class PageInterface:
     def visit(self, url: str) -> "PageInterface":
         """Navigate to the given URL."""
         normalized_url = url if url.startswith("http") else (settings.base_url + url)
+        self.logger.info(
+            "%s: Open page '%s'" % (self.__class__.__name__, normalized_url)
+        )
         self.driver.get(normalized_url)
         return self
 
     def reload(self) -> "PageInterface":
         """Reload (aka refresh) the current window."""
+        self.logger.info("%s: Reload page" % self.__class__.__name__)
         self.driver.refresh()
         return self
 
@@ -47,4 +52,5 @@ class PageInterface:
         return self.wait.until(EC.presence_of_all_elements_located(locator))
 
     def alert_accept(self) -> None:
+        self.logger.info("%s: Accept alert" % self.__class__.__name__)
         Alert(self.driver).accept()
