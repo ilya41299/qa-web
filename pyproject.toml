@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "qa-web"
+version = "0.1.0"
+description = ""
+authors = ["ilya41299"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "^8.2.1"
+selenium = "^4.22.0"
+yarl = "^1.9.4"
+pydantic = "^2.7.0"
+pydantic-settings = "^2.2.1"
+ruff = "^0.5.2"
+pytest-xdist = "^3.5.0"
+faker = "^26.0.0"
+polyfactory = "^2.16.0"
+allure-pytest = "^2.13.5"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
