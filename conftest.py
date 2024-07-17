@@ -118,6 +118,7 @@ def browser(request) -> WebDriver:
     driver.logger = logger
     driver.test_name = request.node.name
     logger.info("Browser started at %s" % datetime.datetime.now())
+    driver.set_window_size(1920, 1080)
     yield driver
     logger.info(
         "===> Test %s finished at %s" % (request.node.name, datetime.datetime.now())
