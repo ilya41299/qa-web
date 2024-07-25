@@ -16,7 +16,6 @@
 .idea
 .yarnrc
 .tags
-.env
 .vscode/settings.json
 .*.sw?
 *.tar.gz
