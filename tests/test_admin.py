@@ -1,7 +1,7 @@
 import allure
 
-from users import default_admin
-from enums.admin_navigation import AdminNavigationTabs, AdminNavigationSubtabs
+from src.users.users import default_admin
+from src.enums.admin_navigation import AdminNavigationTabs, AdminNavigationSubtabs
 from utils.fake_data import FakeProductDataFactory, FakeCustomerRegistrationDataFactory
 
 

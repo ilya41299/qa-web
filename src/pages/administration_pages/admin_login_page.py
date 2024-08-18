@@ -2,10 +2,10 @@ import allure
 from pydantic import SecretStr
 from selenium import webdriver
 
-from page_components import Button, Input, Title
+from src.page_components import Button, Input, Title
 
-from pages.base_page import BasePage
-from users import User
+from src.pages.base_page import BasePage
+from src.users.users import User
 from selenium.webdriver.common.by import By
 
 

@@ -6,7 +6,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.alert import Alert
 from config import settings
-from locators import Locator
+from src.locators.locators import Locator
 
 
 class PageInterface:

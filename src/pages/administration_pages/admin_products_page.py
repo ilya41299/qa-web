@@ -1,10 +1,10 @@
 from selenium import webdriver
 
-from page_components import Button, Input
+from src.page_components import Button, Input
 
-from pages.base_page import BasePage
-from page_components.complex_components.admin_add_product import AdminAddProduct
-from page_components.complex_components.admin_navigation import AdminNavigation
+from src.pages.base_page import BasePage
+from src.page_components.complex_components.admin_add_product import AdminAddProduct
+from src.page_components.complex_components.admin_navigation import AdminNavigation
 from selenium.webdriver.common.by import By
 
 

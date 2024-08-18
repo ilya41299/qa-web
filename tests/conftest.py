@@ -1,13 +1,13 @@
 import pytest
 
-from pages.main_page import MainPage
-from pages.administration_pages.admin_login_page import AdminLoginPage
-from pages.administration_pages.admin_dashboard_page import AdminDashboardPage
-from pages.category_page import CategoryPage
-from pages.product_page import ProductPage
-from pages.registration_page import RegistrationPage
-from pages.administration_pages.admin_products_page import AdminProductsPage
-from pages.administration_pages.admin_customer_page import AdminCustomerPage
+from src.pages.main_page import MainPage
+from src.pages.administration_pages.admin_login_page import AdminLoginPage
+from src.pages.administration_pages.admin_dashboard_page import AdminDashboardPage
+from src.pages.category_page import CategoryPage
+from src.pages.product_page import ProductPage
+from src.pages.registration_page import RegistrationPage
+from src.pages.administration_pages.admin_products_page import AdminProductsPage
+from src.pages.administration_pages.admin_customer_page import AdminCustomerPage
 
 
 @pytest.fixture()
