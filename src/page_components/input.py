@@ -2,7 +2,7 @@ import allure
 from pydantic import SecretStr
 from selenium.webdriver.support import expected_conditions as EC
 
-from page_components.component import Component, timeout_wrapper
+from src.page_components.component import Component, timeout_wrapper
 
 
 class Input(Component):

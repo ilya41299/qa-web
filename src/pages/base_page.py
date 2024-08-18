@@ -2,9 +2,9 @@ import allure
 from selenium.webdriver import Remote
 
 from config import settings
-from page_components import Title
+from src.page_components import Title
 from selenium.webdriver.common.by import By
-from page_components.page_interface.page_interface import PageInterface
+from src.page_components.page_interface.page_interface import PageInterface
 
 
 class BasePage:

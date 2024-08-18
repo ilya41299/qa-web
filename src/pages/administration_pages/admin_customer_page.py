@@ -1,11 +1,11 @@
 import allure
 from selenium import webdriver
 
-from page_components import Button
+from src.page_components import Button
 
-from pages.base_page import BasePage
-from page_components.complex_components.admin_add_customer import AdminAddCustomer
-from page_components.complex_components.admin_navigation import AdminNavigation
+from src.pages.base_page import BasePage
+from src.page_components.complex_components.admin_add_customer import AdminAddCustomer
+from src.page_components.complex_components.admin_navigation import AdminNavigation
 from selenium.webdriver.common.by import By
 
 

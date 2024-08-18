@@ -1,5 +1,5 @@
-from page_components import Button, Input
-from page_components.page_interface.page_interface import PageInterface
+from src.page_components import Button, Input
+from src.page_components.page_interface.page_interface import PageInterface
 from selenium.webdriver.common.by import By
 
 

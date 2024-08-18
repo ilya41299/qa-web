@@ -1,4 +1,4 @@
-from page_components.component import Component
+from src.page_components.component import Component
 
 
 class Image(Component):

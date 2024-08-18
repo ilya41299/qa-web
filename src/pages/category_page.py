@@ -1,9 +1,9 @@
 from selenium import webdriver
 
-from page_components import Button, Title
-from page_components.complex_components.product_cart import ProductCart
-from page_components.complex_components.shopping_cart import ShoppingCart
-from pages.base_page import BasePage
+from src.page_components import Button, Title
+from src.page_components.complex_components.product_cart import ProductCart
+from src.page_components.complex_components.shopping_cart import ShoppingCart
+from src.pages.base_page import BasePage
 
 from selenium.webdriver.common.by import By
 

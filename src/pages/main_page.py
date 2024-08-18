@@ -1,10 +1,10 @@
 from selenium import webdriver
 
-from page_components import Input, Title
-from page_components.complex_components.product_cart import ProductCart
-from page_components.complex_components.shopping_cart import ShoppingCart
-from page_components.complex_components.navbar import Navbar
-from pages.base_page import BasePage
+from src.page_components import Input, Title
+from src.page_components.complex_components.product_cart import ProductCart
+from src.page_components.complex_components.shopping_cart import ShoppingCart
+from src.page_components.complex_components.navbar import Navbar
+from src.pages.base_page import BasePage
 
 from selenium.webdriver.common.by import By
 

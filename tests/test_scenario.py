@@ -1,6 +1,6 @@
 import allure
 
-from users import default_admin
+from src.users.users import default_admin
 import random
 import pytest
 

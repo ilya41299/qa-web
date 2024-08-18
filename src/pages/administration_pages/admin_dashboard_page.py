@@ -1,8 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 
-from page_components import Button, Title
-from pages.base_page import BasePage
+from src.page_components import Button, Title
+from src.pages.base_page import BasePage
 
 
 class AdminDashboardPage(BasePage):

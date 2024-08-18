@@ -1,9 +1,9 @@
 import allure
 
-from page_components import Button, Input
-from page_components.page_interface.page_interface import PageInterface
+from src.page_components import Button, Input
+from src.page_components.page_interface.page_interface import PageInterface
 from selenium.webdriver.common.by import By
-from enums.add_product_tabs import AddProductTabs
+from src.enums.add_product_tabs import AddProductTabs
 
 
 class AdminAddProduct:

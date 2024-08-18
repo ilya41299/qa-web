@@ -8,8 +8,8 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 import allure
 from allure_commons.types import AttachmentType
-from locators import Locator
-from page_components.page_interface.page_interface import PageInterface
+from src.locators.locators import Locator
+from src.page_components.page_interface.page_interface import PageInterface
 
 T = TypeVar("T")
 P = ParamSpec("P")
