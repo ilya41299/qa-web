@@ -8,7 +8,7 @@
 
 Для переменных `LOCAL_IP` и `BASE_URL` заменить значение на текущий локальный ip-адрес (команда для macOS`ipconfig getifaddr en0`)
 
-Если тесты будут выполняться с помощью [selenoid](https://aerokube.com/selenoid/latest/) - установить `IS_LOCAL=True`, в противном случае `IS_LOCAL=False`.
+Если тесты будут выполняться с помощью [selenoid](https://aerokube.com/selenoid/latest/) - установить `IS_LOCAL=False`, в противном случае `IS_LOCAL=True`.
 
 # Запуск
 1. Установить зависимости командой `poetry install`.

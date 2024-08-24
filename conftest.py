@@ -11,11 +11,6 @@ from config import settings
 
 def pytest_addoption(parser):
     parser.addoption(
-        "--base_url",
-        default=settings.base_url,
-        help="Base application url: https://example.com",
-    )
-    parser.addoption(
         "--browser",
         default="chrome",
         help="Choose browser: chrome or firefox",
@@ -50,11 +45,6 @@ def pytest_addoption(parser):
         action="store_true",
         help="Store browser logs",
     )
-
-
-@pytest.fixture(scope="session")
-def get_base_url(request) -> str:
-    return request.config.getoption("base_url")
 
 
 @pytest.fixture(scope="function")
